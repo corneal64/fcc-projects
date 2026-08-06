@@ -2,271 +2,439 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>A Tribute Page For Michael Jackson</title>
-    <link rel="stylesheet" href="./bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./style.css" />
   </head>
 
   <body>
-    <div class="container-fluid">
-      <div class="jumbotron">
-        <div class="container">
-          <h1 class="text-center">Michael Jackson</h1>
-          <h3 class="text-center"><em>The King of Pop</em></h3>
-        </div>
-        <div class="center-block">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="thumbnail">
-                <img
-                  src="images/Jackson_5_tv_special_1972.JPG"
-                  alt="Jackson 5 in 1972"
-                />
+    <!-- Hero Section -->
+    <header class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">The Legend</p>
+        <h1 class="hero-title">Michael Jackson</h1>
+        <h2 class="hero-subtitle">The King of Pop</h2>
+        <div class="hero-divider"></div>
+        <p class="hero-quote">
+          "Music has been my outlet, my gift to all of the lovers in this
+          world."
+        </p>
+      </div>
+    </header>
 
-                <div class="caption">
-                  <h5 class="text-center">
-                    Jackson (center) as a member of the Jackson 5 in 1972.
-                  </h5>
-                </div>
-              </div>
-            </div>
+    <!-- Image Section -->
+    <section class="image-section">
+      <div class="image-card">
+        <img
+          src="images/Jackson_5_tv_special_1972.JPG"
+          alt="Jackson 5 in 1972"
+          class="image-card-img"
+        />
+        <div class="image-card-caption">
+          Jackson (center) as a member of the Jackson 5 in 1972.
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+      <div class="section-header">
+        <h2 class="section-title">A Timeline of His Life</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">1958</div>
+          <div class="timeline-content">
+            <p>
+              Michael Joseph Jackson is born to Katherine and Joe Jackson in
+              Gary, Ind. His older siblings are Rebbie, Jackie, Tito, Jermaine,
+              LaToya and Marlon.
+            </p>
           </div>
         </div>
 
-        <div class="container-table">
-          <div class="row vertical-center-row">
-            <div class="col-xs-10 col-xs-offset-1">
-              <div class="text-left">
-                <h3>Here's a timeline of Michael Jackson's life</h3>
+        <div class="timeline-item">
+          <div class="timeline-year">1962</div>
+          <div class="timeline-content">
+            <p>
+              Michael, Marlon, Jackie, Tito and Jermaine combine to form a band.
+              At first, their father does not approve, but later changes his
+              mind and manages the band. Jackson sings lead vocal on most of the
+              songs.
+            </p>
+          </div>
+        </div>
 
-                <ul class="text-justify">
-                  <li>
-                    <strong>1958</strong> - Michael Joseph Jackson is born to
-                    Katherine and Joe Jackson in Gary, Ind. His older siblings
-                    are Rebbie, Jackie, Tito, Jermaine, LaToya and Marlon.
-                  </li>
-                  <li>
-                    <strong>1962</strong> - Michael, Marlon, Jackie, Tito and
-                    Jermaine combine to form a band. At first, their father does
-                    not approve, but later changes his mind and manages the
-                    band. Jackson sings lead vocal on most of the songs.
-                  </li>
-                  <li><strong>1968</strong> - Motown signs The Jackson 5.</li>
-                  <li>
-                    <strong>1969</strong> - The song "I Want You Back" jumps to
-                    the number-one singles spot. "ABC (1970)," "The Love You
-                    Save" and "I'll Be There" follow suit.
-                  </li>
-                  <li>
-                    <strong>1971-1972</strong> - Jackson goes solo, and his
-                    singles "Got to Be There," "Rockin' Robin" and "I Wanna Be
-                    Where You Are" storm the charts
-                  </li>
-                  <li>
-                    <strong>1978</strong> - Jackson makes his film debut as the
-                    Scarecrow in <em>The Wiz</em>, an urban retelling of the
-                    classic film <em>The Wizard Of Oz</em>. Diana Ross co-stars
-                    as Dorothy. Jackson is said to wear his makeup long after
-                    production hours.
-                  </li>
-                  <li>
-                    <strong>1979</strong> - Jackson records
-                    <em>Off The Wall</em>, his first album as a solo artist. The
-                    singles "Don't Stop 'Til You Get Enough" and "Rock With You"
-                    both shoot to number-one hits.
-                  </li>
-                  <li>
-                    <strong>1980</strong> - Jackson nabs his first Grammy Award
-                    for Best R&amp;B Male Vocal Performance.
-                  </li>
-                  <li>
-                    <strong>1982-1983</strong> - Jackson releases the album
-                    <em>Thriller</em>, and it tops the charts for 37 weeks.
-                    Seven singles dash into the top 10, including "Billie Jean,"
-                    "Beat It," "Thriller" and "Wanna Be Startin' Somethin'." The
-                    extended video sequence on "Thriller" has Jackson morph into
-                    a werewolf. Jackson unveils his signature dance move, the
-                    moonwalk.
-                  </li>
-                  <li>
-                    <strong>1984</strong> - Questions arise about Jackson's
-                    changing appearance, and some wonder if the singer has had
-                    plastic surgery. He builds a home on 2,700 acres in Central
-                    California, complete with its own amusement park rides, and
-                    calls it Neverland.
-                  </li>
-                  <li>
-                    <strong>1985</strong> - Jackson and Lionel Richie pen "We
-                    Are The World," with the proceeds from sales of the single
-                    slated for hunger relief in Africa. Ray Charles, Stevie
-                    Wonder, Cyndi Lauper and other prominent artists lend their
-                    voices to the song. It sells a record seven million copies.
-                  </li>
-                  <li>
-                    <strong>1987</strong> - <em>Bad</em>, Jackson's third album,
-                    hits the shelves. He embarks on a world tour.
-                  </li>
-                  <li>
-                    <strong>1988</strong> - Doubleday publishes Jackson's
-                    autobiography, <em>Moonwalk</em>.
-                  </li>
-                  <li>
-                    <strong>1990</strong> - <em>Thriller</em> goes platinum for
-                    the 21st time and the Guinness Book of World Records
-                    certifies it as the best-selling album ever. To date, it has
-                    sold 65 million copies.
-                  </li>
-                  <li>
-                    <strong>1992</strong> - Jackson tells Oprah Winfrey he has
-                    vitiligo, a skin disorder that destroys melanin and, in
-                    severe cases, can leave a victim devoid of skin color. He
-                    also reveals that his father emotionally abused him as a
-                    child.
-                  </li>
-                  <li>
-                    <strong>1993</strong> - Jackson is accused in civil court of
-                    molesting an 11-year-old boy. Police descend on Neverland
-                    and subject Jackson to a full body search. "It was the most
-                    humiliating ordeal of my life," he says in a televised
-                    statement in December.
-                  </li>
-                  <li>
-                    <strong>1994</strong> - Jackson settles the molestation case
-                    out of court. The boy is paid more than $15 million, to be
-                    held in trust until he is an adult. The parents of the boy
-                    receive $1.5 million each.
-                  </li>
-                  <li>
-                    <strong>1994</strong> - On May 26 Jackson and Lisa-Marie
-                    Presley tie the knot. The marriage will last less than two
-                    years.
-                  </li>
-                  <li>
-                    <strong>1995</strong> - Sony releases
-                    <em>HIStory: Past, Present and Future Book I.</em> Janet
-                    Jackson performs a duet with her older brother on "Scream."
-                  </li>
-                  <li>
-                    <strong>1996</strong> - Jarvis Cocker of the British band
-                    Pulp
-                    <a
-                      href="https://www.youtube.com/watch?v=upbbz_Eyq4Q"
-                      target="_blank"
-                      >accosts Jackson in mid-act</a
-                    >
-                    at the BRIT Awards. Jackson was surrounded by children and a
-                    rabbi performing "Earth Song." Cocker claims Jackson had
-                    attempted to imitate Christ.
-                  </li>
-                  <li>
-                    <strong>1997</strong> - Jackson marries Debbie Rowe, a
-                    nurse. Rowe gives birth to a son, Prince Michael. Jackson is
-                    inducted into the Rock and Roll Hall of Fame.
-                  </li>
-                  <li>
-                    <strong>1998</strong> - Rowe bears a girl, Paris Michael
-                    Katherine.
-                  </li>
-                  <li><strong>1999</strong> - Jackson and Rowe split.</li>
-                  <li>
-                    <strong>2000</strong> - "Billie Jean," "Rock With You," "I
-                    Want You Back" and "Beat It" make Rolling Stone magazine's
-                    list of the 100 greatest songs of all time.
-                  </li>
-                  <li>
-                    <strong>2001</strong> - Sony releases Invincible, which is
-                    panned by critics and does not sell well. Jackson battles a
-                    $21-million civil suit by a German concert promoter who says
-                    the singer backed out of two concerts and pocketed an
-                    advance.
-                  </li>
-                  <li>
-                    <strong>2002</strong> - Jackson lifts his newborn son,
-                    Prince Michael, over a hotel room terrace so fans can
-                    glimpse — and is roundly criticized for endangering his
-                    child. The identity of the child's mother is never revealed.
-                    Jackson says the child is the result of artificial
-                    insemination from a surrogate mother and his own sperm
-                    cells.
-                  </li>
-                  <li>
-                    <strong>2003</strong> - Jackson is charged with seven counts
-                    of child sexual abuse and two counts of administering an
-                    intoxicating agent. All charges were made by the same boy,
-                    Gavin Arvizo, who was under 14 at the time of the alleged
-                    crime.
-                  </li>
-                  <li>
-                    <strong>2005</strong> - Jackson is acquitted on all counts
-                    in the Arvizo case in the the People v. Jackson trial in
-                    Santa Maria, Calif.
-                  </li>
-                  <li>
-                    <strong>2006</strong> - Financial troubles force closure on
-                    the main house on the Neverland Ranch. Jackson agrees to a
-                    Sony-backed refinancing deal. Jackson makes his first public
-                    appearance since the Arvizo trial to accept eight records
-                    from the Guinness World Records in London, including "Most
-                    Successful Entertainer of All Time." In late 2006, Jackson
-                    agrees to share joint custody of his first two children with
-                    ex-wife Debbie Rowe.
-                  </li>
-                  <li>
-                    <strong>2007</strong> - Jackson and Sony buy Famous Music
-                    LLC from Viacom, which gives him rights to songs by Eminem,
-                    Shakira, Beck and others.
-                  </li>
-                  <li>
-                    <strong>2008</strong> - Jackson issues <em>Thriller 25</em>,
-                    celebrating 25 years of the iconic album. The reissue hits
-                    number one in eight countries and reached number two in the
-                    U.S. Sony releases <em>King of Pop</em>, a fan-curated
-                    compilation.
-                  </li>
-                  <li>
-                    <strong>2009</strong> - On June 25, Jackson dies in Los
-                    Angeles at 50 after going into cardiac arrest.
-                  </li>
-                </ul>
+        <div class="timeline-item">
+          <div class="timeline-year">1968</div>
+          <div class="timeline-content">
+            <p>Motown signs The Jackson 5.</p>
+          </div>
+        </div>
 
-                <blockquote>
-                  <p>
-                    "Michael Jackson believed in making music that made people
-                    feel good."
-                  </p>
-                  <footer><cite>Ne-Yo</cite></footer>
-                </blockquote>
+        <div class="timeline-item">
+          <div class="timeline-year">1969</div>
+          <div class="timeline-content">
+            <p>
+              The song "I Want You Back" jumps to the number-one singles spot.
+              "ABC (1970)," "The Love You Save" and "I'll Be There" follow suit.
+            </p>
+          </div>
+        </div>
 
-                <h3>
-                  To read more about Michael Jackson, please check his
-                  <a
-                    href="https://en.wikipedia.org/wiki/Michael_Jackson"
-                    target="_blank"
-                    >Wikipedia entry</a
-                  >.
-                </h3>
-              </div>
-            </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1971-72</div>
+          <div class="timeline-content">
+            <p>
+              Jackson goes solo, and his singles "Got to Be There," "Rockin'
+              Robin" and "I Wanna Be Where You Are" storm the charts.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1978</div>
+          <div class="timeline-content">
+            <p>
+              Jackson makes his film debut as the Scarecrow in
+              <em>The Wiz</em>, an urban retelling of the classic film
+              <em>The Wizard Of Oz</em>. Diana Ross co-stars as Dorothy. Jackson
+              is said to wear his makeup long after production hours.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1979</div>
+          <div class="timeline-content">
+            <p>
+              Jackson records <em>Off The Wall</em>, his first album as a solo
+              artist. The singles "Don't Stop 'Til You Get Enough" and "Rock
+              With You" both shoot to number-one hits.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1980</div>
+          <div class="timeline-content">
+            <p>
+              Jackson nabs his first Grammy Award for Best R&B Male Vocal
+              Performance.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1982-83</div>
+          <div class="timeline-content">
+            <p>
+              Jackson releases the album <em>Thriller</em>, and it tops the
+              charts for 37 weeks. Seven singles dash into the top 10, including
+              "Billie Jean," "Beat It," "Thriller" and "Wanna Be Startin'
+              Somethin'." The extended video sequence on "Thriller" has Jackson
+              morph into a werewolf. Jackson unveils his signature dance move,
+              the moonwalk.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1984</div>
+          <div class="timeline-content">
+            <p>
+              Questions arise about Jackson's changing appearance, and some
+              wonder if the singer has had plastic surgery. He builds a home on
+              2,700 acres in Central California, complete with its own amusement
+              park rides, and calls it Neverland.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1985</div>
+          <div class="timeline-content">
+            <p>
+              Jackson and Lionel Richie pen "We Are The World," with the
+              proceeds from sales of the single slated for hunger relief in
+              Africa. Ray Charles, Stevie Wonder, Cyndi Lauper and other
+              prominent artists lend their voices to the song. It sells a record
+              seven million copies.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1987</div>
+          <div class="timeline-content">
+            <p>
+              <em>Bad</em>, Jackson's third album, hits the shelves. He embarks
+              on a world tour.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1988</div>
+          <div class="timeline-content">
+            <p>
+              Doubleday publishes Jackson's autobiography,
+              <em>Moonwalk</em>.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1990</div>
+          <div class="timeline-content">
+            <p>
+              <em>Thriller</em> goes platinum for the 21st time and the Guinness
+              Book of World Records certifies it as the best-selling album ever.
+              To date, it has sold 65 million copies.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1992</div>
+          <div class="timeline-content">
+            <p>
+              Jackson tells Oprah Winfrey he has vitiligo, a skin disorder that
+              destroys melanin and, in severe cases, can leave a victim devoid
+              of skin color. He also reveals that his father emotionally abused
+              him as a child.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1993</div>
+          <div class="timeline-content">
+            <p>
+              Jackson is accused in civil court of molesting an 11-year-old boy.
+              Police descend on Neverland and subject Jackson to a full body
+              search. "It was the most humiliating ordeal of my life," he says
+              in a televised statement in December.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1994</div>
+          <div class="timeline-content">
+            <p>
+              Jackson settles the molestation case out of court. The boy is paid
+              more than $15 million, to be held in trust until he is an adult.
+              The parents of the boy receive $1.5 million each. On May 26
+              Jackson and Lisa-Marie Presley tie the knot. The marriage will
+              last less than two years.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1995</div>
+          <div class="timeline-content">
+            <p>
+              Sony releases <em>HIStory: Past, Present and Future Book I.</em>
+              Janet Jackson performs a duet with her older brother on "Scream."
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1996</div>
+          <div class="timeline-content">
+            <p>
+              Jarvis Cocker of the British band Pulp
+              <a
+                href="https://www.youtube.com/watch?v=upbbz_Eyq4Q"
+                target="_blank"
+                >accosts Jackson in mid-act</a
+              >
+              at the BRIT Awards. Jackson was surrounded by children and a rabbi
+              performing "Earth Song." Cocker claims Jackson had attempted to
+              imitate Christ.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1997</div>
+          <div class="timeline-content">
+            <p>
+              Jackson marries Debbie Rowe, a nurse. Rowe gives birth to a son,
+              Prince Michael. Jackson is inducted into the Rock and Roll Hall of
+              Fame.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1998</div>
+          <div class="timeline-content">
+            <p>Rowe bears a girl, Paris Michael Katherine.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">1999</div>
+          <div class="timeline-content">
+            <p>Jackson and Rowe split.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2000</div>
+          <div class="timeline-content">
+            <p>
+              "Billie Jean," "Rock With You," "I Want You Back" and "Beat It"
+              make Rolling Stone magazine's list of the 100 greatest songs of
+              all time.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2001</div>
+          <div class="timeline-content">
+            <p>
+              Sony releases Invincible, which is panned by critics and does not
+              sell well. Jackson battles a $21-million civil suit by a German
+              concert promoter who says the singer backed out of two concerts
+              and pocketed an advance.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2002</div>
+          <div class="timeline-content">
+            <p>
+              Jackson lifts his newborn son, Prince Michael, over a hotel room
+              terrace so fans can glimpse — and is roundly criticized for
+              endangering his child. The identity of the child's mother is never
+              revealed. Jackson says the child is the result of artificial
+              insemination from a surrogate mother and his own sperm cells.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2003</div>
+          <div class="timeline-content">
+            <p>
+              Jackson is charged with seven counts of child sexual abuse and two
+              counts of administering an intoxicating agent. All charges were
+              made by the same boy, Gavin Arvizo, who was under 14 at the time
+              of the alleged crime.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2005</div>
+          <div class="timeline-content">
+            <p>
+              Jackson is acquitted on all counts in the Arvizo case in the the
+              People v. Jackson trial in Santa Maria, Calif.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2006</div>
+          <div class="timeline-content">
+            <p>
+              Financial troubles force closure on the main house on the
+              Neverland Ranch. Jackson agrees to a Sony-backed refinancing deal.
+              Jackson makes his first public appearance since the Arvizo trial
+              to accept eight records from the Guinness World Records in London,
+              including "Most Successful Entertainer of All Time." In late 2006,
+              Jackson agrees to share joint custody of his first two children
+              with ex-wife Debbie Rowe.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2007</div>
+          <div class="timeline-content">
+            <p>
+              Jackson and Sony buy Famous Music LLC from Viacom, which gives him
+              rights to songs by Eminem, Shakira, Beck and others.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">2008</div>
+          <div class="timeline-content">
+            <p>
+              Jackson issues <em>Thriller 25</em>, celebrating 25 years of the
+              iconic album. The reissue hits number one in eight countries and
+              reached number two in the U.S. Sony releases <em>King of Pop</em>,
+              a fan-curated compilation.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item timeline-item-final">
+          <div class="timeline-year">2009</div>
+          <div class="timeline-content">
+            <p>
+              On June 25, Jackson dies in Los Angeles at 50 after going into
+              cardiac arrest.
+            </p>
           </div>
         </div>
       </div>
-      <hr />
-      <footer>
-        <div class="text-center">
-          <p>
-            Written and coded by
-            <a href="https://www.freecodecamp.com/corneal64" target="_blank"
-              >Cornelius</a
-            >
-            |
-            <a
-              href="http://www.npr.org/templates/story/story.php?storyId=4702126"
-              target="_blank"
-              >Sources</a
-            >
-          </p>
-        </div>
-      </footer>
-    </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+      <blockquote class="quote">
+        <p class="quote-text">
+          "Michael Jackson believed in making music that made people feel good."
+        </p>
+        <footer class="quote-author">— Ne-Yo</footer>
+      </blockquote>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <p class="cta-text">
+        To read more about Michael Jackson, please check his
+        <a
+          href="https://en.wikipedia.org/wiki/Michael_Jackson"
+          target="_blank"
+          class="cta-link"
+          >Wikipedia entry</a
+        >.
+      </p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>
+        Written and coded by
+        <a href="https://github.com/corneal64" target="_blank">Cornelius</a>
+        |
+        <a
+          href="http://www.npr.org/templates/story/story.php?storyId=4702126"
+          target="_blank"
+          >Sources</a
+        >
+      </p>
+    </footer>
   </body>
 </html>

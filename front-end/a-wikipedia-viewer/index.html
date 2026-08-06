@@ -1,38 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Wikipedia Viewer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<title>A Wikipedia Viewer</title>
-	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css'>
-	<link rel="stylesheet" href="./style.css">
-</head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <a
+          href="https://en.wikipedia.org/wiki/Special:Random"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="random-link"
+          title="Random article"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M16 3h5v5" />
+            <path d="M4 20L21 3" />
+            <path d="M21 16v5h-5" />
+            <path d="M15 15l6 6" />
+            <path d="M4 4l5 5" />
+          </svg>
+          Random
+        </a>
+      </header>
 
-<body>
-	<div class="container">
-		<div id="main">
-			<div class="text-center" id="searchbox">
-				<a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank">
-					<div class='glyphicon glyphicon-random'></div>
-				</a>
-				<a href="#">
-					<div class="glyphicon glyphicon-search"></div>
-				</a>
-				<input type="text" id="input">
-				<button class="btn btn-success" id="submit">Search</button>
-			</div>
-			<div id="wikibox"></div>
-		</div>
+      <main>
+        <div class="search-section">
+          <h1 class="title">Wikipedia Viewer</h1>
+          <p class="subtitle">Search articles from the free encyclopedia</p>
 
-		<footer>
-			<h5 class="text-center">Coded By <a href="https://www.freecodecamp.com/corneal64"
-					target="_blank">Cornelius</a></h5>
-		</footer>
+          <form id="search-form" class="search-form" autocomplete="off">
+            <div class="search-bar">
+              <svg
+                class="search-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input
+                type="text"
+                id="input"
+                placeholder="Search Wikipedia..."
+                aria-label="Search Wikipedia"
+              />
+              <button type="submit" id="submit" class="search-button">
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
 
-	</div>
-	<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-	<script src="./script.js"></script>
-</body>
+        <div id="wikibox" class="results" aria-live="polite"></div>
+      </main>
 
+      <footer>
+        <p>
+          Coded by
+          <a
+            href="https://corneal64.github.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Cornelius</a
+          >
+        </p>
+      </footer>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
 </html>

@@ -1,147 +1,302 @@
-// Variables to hold time data
-var workTime = 25;
-var breakTime = 5;
-var workDuration = workTime * 60;
-var breakDuration = breakTime * 60;
+// ===== Pomodoro Clock =====
+// Reliable, drift-free timer using timestamp-based calculations.
 
-// Default display for work clock
-var workClock = $('#workTime').FlipClock(1500, {
-  autoStart: false,
-  countdown: true,
-  clockFace: "MinuteCounter"
-});
+(function () {
+  "use strict";
 
-// Default display for break clock
-var breakClock = $('#breakTime').FlipClock(300, {
-  autoStart: false,
-  countdown: true,
-  clockFace: "MinuteCounter"
-});
+  // ---- DOM Elements ----
+  var timerDisplay = document.getElementById("timerDisplay");
+  var timerStatus = document.getElementById("timerStatus");
+  var sessionLabel = document.getElementById("sessionLabel");
+  var progressRing = document.getElementById("progressRing");
+  var timerCard = document.querySelector(".timer-card");
+  var startBtn = document.getElementById("startBtn");
+  var startIcon = document.getElementById("startIcon");
+  var startLabel = document.getElementById("startLabel");
+  var resetBtn = document.getElementById("resetBtn");
+  var workTab = document.getElementById("workTab");
+  var breakTab = document.getElementById("breakTab");
+  var workPlus = document.getElementById("workPlus");
+  var workMinus = document.getElementById("workMinus");
+  var breakPlus = document.getElementById("breakPlus");
+  var breakMinus = document.getElementById("breakMinus");
+  var workValue = document.getElementById("workValue");
+  var breakValue = document.getElementById("breakValue");
+  var cycleCount = document.getElementById("cycleCount");
 
-// Start button function
-$("#startClock").on("click", function() {
-  $("#startClock").addClass("disabled");
-  $("#stopClock").removeClass("disabled");
-  $("#breakMinus").addClass("disabled");
-  $("#breakPlus").addClass("disabled");
-  $("#durationMinus").addClass("disabled");
-  $("#durationPlus").addClass("disabled");
-  workClock.start(function() {
-    if (workClock.getTime().time === 1) {
-      $.playSound('https://res.cloudinary.com/corneal64/raw/upload/v1470065444/timeUp_imj92p');
+  // ---- Constants ----
+  var MIN_LENGTH = 1; // minutes
+  var MAX_LENGTH = 60; // minutes
+  var RING_CIRCUMFERENCE = 2 * Math.PI * 130; // r = 130
 
-      breakClock.start(function() {
-        if (breakClock.getTime().time === 1) {
-          $("#breakMinus").removeClass("disabled");
-          $("#breakPlus").removeClass("disabled");
-          $("#durationMinus").removeClass("disabled");
-          $("#durationPlus").removeClass("disabled");
-          $("#stopClock").addClass("disabled");
-          $("#startClock").removeClass("disabled");
-          $.playSound('https://res.cloudinary.com/corneal64/raw/upload/v1470065444/timeUp_imj92p');
-        }
+  // ---- State ----
+  var workLength = 25; // minutes
+  var breakLength = 5; // minutes
+  var mode = "work"; // "work" | "break"
+  var isRunning = false;
+  var isPaused = false;
+  var totalSeconds = workLength * 60;
+  var remainingSeconds = totalSeconds;
+  var completedCycles = 0;
+  var endTime = null; // timestamp when the current session ends
+  var timerId = null;
+
+  // ---- Audio (Web Audio API chime) ----
+  var audioCtx = null;
+
+  // Creates/resumes the AudioContext within a user gesture so the
+  // completion chime reliably plays later.
+  function initAudio() {
+    try {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+    } catch (e) {
+      // Audio not available; silently ignore.
+    }
+  }
+
+  function playChime() {
+    initAudio();
+    try {
+      if (!audioCtx) return;
+      var now = audioCtx.currentTime;
+      var notes = [880, 1174.66]; // A5, D6
+
+      notes.forEach(function (freq, index) {
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.0001, now + index * 0.18);
+        gain.gain.exponentialRampToValueAtTime(0.4, now + index * 0.18 + 0.02);
+        gain.gain.exponentialRampToValueAtTime(
+          0.0001,
+          now + index * 0.18 + 0.5,
+        );
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now + index * 0.18);
+        osc.stop(now + index * 0.18 + 0.55);
       });
+    } catch (e) {
+      // Audio not available; silently ignore.
     }
-  });
-});
-
-// Stop button function
-$("#stopClock").on("click", function() {
-  workClock.stop();
-  $("#startClock").removeClass("disabled");
-  $("#stopClock").addClass("disabled");
-})
-
-// Duration Plus function
-$("#durationPlus").on("click", function() {
-  if (workClock.getTime().time === 59 && $("#durationMinus").hasClass("disabled")) {
-    $("#durationMinus").removeClass("disabled");
-    workTime += 1;
-    workDuration = workTime * 60;
-    workClock.setTime(workDuration);
-  } else {
-    workTime += 1;
-    workDuration = workTime * 60;
-    workClock.setTime(workDuration);
-  }
-});
-
-// Duration Minus Function
-$("#durationMinus").on("click", function() {
-  if (workClock.getTime().time === 59) {
-    $("#durationMinus").addClass("disabled");
-  } else {
-    workTime -= 1;
-    workDuration = workTime * 60;
-    workClock.setTime(workDuration);
-  }
-});
-
-// Break Plus Function
-$("#breakPlus").on("click", function() {
-  if (breakClock.getTime().time === 59 && $("#breakMinus").hasClass("disabled")) {
-    $("#breakMinus").removeClass("disabled");
-    breakTime += 1;
-    breakDuration = breakTime * 60;
-    breakClock.setTime(breakDuration);
-  } else {
-    breakTime += 1;
-    breakDuration = breakTime * 60;
-    breakClock.setTime(breakDuration);
-  }
-});
-
-// Break Minus Function
-$("#breakMinus").on("click", function() {
-  if (breakClock.getTime().time === 59) {
-    $("#breakMinus").addClass("disabled");
-  } else {
-    breakTime -= 1;
-    breakDuration = breakTime * 60;
-    breakClock.setTime(breakDuration);
-  }
-});
-
-// Reset Function
-$("#resetClock").on("click", function() {
-  if ($("#breakMinus").hasClass("disabled") || $("#durationMinus").hasClass("disabled")) {
-    $("#breakMinus").removeClass("disabled");
-    $("#durationMinus").removeClass("disabled");
   }
 
-  $("#startClock").removeClass("disabled");
-  $("#stopClock").addClass("disabled");
-  $("#breakPlus").removeClass("disabled");
-  $("#durationPlus").removeClass("disabled");
+  // ---- Helpers ----
+  function formatTime(seconds) {
+    var mins = Math.floor(seconds / 60);
+    var secs = seconds % 60;
+    return String(mins).padStart(2, "0") + ":" + String(secs).padStart(2, "0");
+  }
 
-  workClock.stop();
-  breakClock.stop();
-  workTime = 25;
-  breakTime = 5;
-  workClock.setTime(1500);
-  breakClock.setTime(300);
-});
+  function updateRing() {
+    var progress = totalSeconds > 0 ? remainingSeconds / totalSeconds : 0;
+    var offset = RING_CIRCUMFERENCE * (1 - progress);
+    progressRing.style.strokeDashoffset = offset;
+  }
 
+  function updateDisplay() {
+    timerDisplay.textContent = formatTime(remainingSeconds);
+    updateRing();
+  }
 
-/**
- * @author Alexander Manzyuk <admsev@gmail.com>
- * Copyright (c) 2012 Alexander Manzyuk - released under MIT License
- * https://github.com/admsev/jquery-play-sound
- * Usage: $.playSound('http://example.org/sound');
- **/
+  function updateSettingsUI() {
+    workValue.textContent = workLength;
+    breakValue.textContent = breakLength;
+    workMinus.disabled = workLength <= MIN_LENGTH;
+    workPlus.disabled = workLength >= MAX_LENGTH;
+    breakMinus.disabled = breakLength <= MIN_LENGTH;
+    breakPlus.disabled = breakLength >= MAX_LENGTH;
+  }
 
-(function($) {
+  function updateCycleUI() {
+    cycleCount.textContent =
+      completedCycles === 1
+        ? "1 completed cycle"
+        : completedCycles + " completed cycles";
+  }
 
-  $.extend({
-    playSound: function() {
-      return $(
-        '<audio autoplay="autoplay" style="display:none;">' +
-        '<source src="' + arguments[0] + '.mp3" />' +
-        '<source src="' + arguments[0] + '.ogg" />' +
-        '<embed src="' + arguments[0] + '.mp3" hidden="true" autostart="true" loop="false" class="playSound" />' +
-        '</audio>'
-      ).appendTo('body');
+  function setMode(newMode) {
+    mode = newMode;
+    var isWork = mode === "work";
+
+    timerCard.classList.toggle("break-mode", !isWork);
+    workTab.classList.toggle("active", isWork);
+    breakTab.classList.toggle("active", !isWork);
+
+    totalSeconds = (isWork ? workLength : breakLength) * 60;
+    remainingSeconds = totalSeconds;
+
+    sessionLabel.textContent = isWork ? "Work Session" : "Break Session";
+    timerStatus.textContent = isRunning ? "Running" : "Ready";
+
+    updateDisplay();
+  }
+
+  function setRunning(running) {
+    isRunning = running;
+    isPaused = false;
+    timerStatus.textContent = running ? "Running" : "Ready";
+    startIcon.innerHTML = running ? "&#10074;&#10074;" : "&#9654;";
+    startLabel.textContent = running ? "Pause" : "Start";
+  }
+
+  function stopTimer() {
+    if (timerId !== null) {
+      clearInterval(timerId);
+      timerId = null;
     }
+  }
+
+  function startTimer() {
+    stopTimer();
+    endTime = Date.now() + remainingSeconds * 1000;
+    timerId = setInterval(tick, 250);
+  }
+
+  function tick() {
+    var now = Date.now();
+    var remainingMs = endTime - now;
+
+    if (remainingMs <= 0) {
+      remainingSeconds = 0;
+      updateDisplay();
+      stopTimer();
+      onSessionComplete();
+      return;
+    }
+
+    var newRemaining = Math.ceil(remainingMs / 1000);
+    if (newRemaining !== remainingSeconds) {
+      remainingSeconds = newRemaining;
+      updateDisplay();
+    }
+  }
+
+  function onSessionComplete() {
+    playChime();
+
+    if (mode === "work") {
+      completedCycles += 1;
+      updateCycleUI();
+      setMode("break");
+    } else {
+      setMode("work");
+    }
+
+    // Keep running automatically into the next session.
+    setRunning(true);
+    startTimer();
+  }
+
+  // ---- Event Handlers ----
+  function handleStart() {
+    initAudio(); // unlock audio on user gesture
+    if (isRunning) {
+      // Pause
+      stopTimer();
+      isRunning = false;
+      isPaused = true;
+      timerStatus.textContent = "Paused";
+      startIcon.innerHTML = "&#9654;";
+      startLabel.textContent = "Resume";
+    } else {
+      // Start or resume
+      if (isPaused) {
+        // Resume from where we left off
+      } else if (remainingSeconds === 0) {
+        // Edge case: timer finished while paused; restart current session
+        remainingSeconds = totalSeconds;
+        updateDisplay();
+      }
+      setRunning(true);
+      startTimer();
+    }
+  }
+
+  function handleReset() {
+    stopTimer();
+    isRunning = false;
+    isPaused = false;
+    completedCycles = 0;
+    updateCycleUI();
+    setMode("work");
+    setRunning(false);
+  }
+
+  function adjustWork(delta) {
+    var newValue = workLength + delta;
+    if (newValue < MIN_LENGTH || newValue > MAX_LENGTH) return;
+    workLength = newValue;
+    updateSettingsUI();
+
+    if (!isRunning && !isPaused && mode === "work") {
+      totalSeconds = workLength * 60;
+      remainingSeconds = totalSeconds;
+      updateDisplay();
+    }
+  }
+
+  function adjustBreak(delta) {
+    var newValue = breakLength + delta;
+    if (newValue < MIN_LENGTH || newValue > MAX_LENGTH) return;
+    breakLength = newValue;
+    updateSettingsUI();
+
+    if (!isRunning && !isPaused && mode === "break") {
+      totalSeconds = breakLength * 60;
+      remainingSeconds = totalSeconds;
+      updateDisplay();
+    }
+  }
+
+  // ---- Wire up events ----
+  startBtn.addEventListener("click", handleStart);
+  resetBtn.addEventListener("click", handleReset);
+
+  workTab.addEventListener("click", function () {
+    if (mode === "work") return;
+    stopTimer();
+    isRunning = false;
+    isPaused = false;
+    setMode("work");
+    setRunning(false);
   });
 
-})(jQuery);
+  breakTab.addEventListener("click", function () {
+    if (mode === "break") return;
+    stopTimer();
+    isRunning = false;
+    isPaused = false;
+    setMode("break");
+    setRunning(false);
+  });
+
+  workPlus.addEventListener("click", function () {
+    adjustWork(1);
+  });
+
+  workMinus.addEventListener("click", function () {
+    adjustWork(-1);
+  });
+
+  breakPlus.addEventListener("click", function () {
+    adjustBreak(1);
+  });
+
+  breakMinus.addEventListener("click", function () {
+    adjustBreak(-1);
+  });
+
+  // ---- Init ----
+  progressRing.style.strokeDasharray = RING_CIRCUMFERENCE;
+  updateSettingsUI();
+  updateCycleUI();
+  setMode("work");
+  setRunning(false);
+})();

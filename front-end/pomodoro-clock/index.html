@@ -1,62 +1,135 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro Clock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<title>Pomodoro Clock</title>
-	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
-	<link rel='stylesheet' href='https://cdn.jsdelivr.net/flipclock/0.1/css/flipclock.css'>
-	<link rel="stylesheet" href="./style.css">
-</head>
+  <body>
+    <main class="app">
+      <h1 class="app-title">Pomodoro</h1>
+      <p class="app-subtitle">Focus on one task at a time</p>
 
-<body>
-	<div class="container text-center">
-		<div id="top">
-			<div class="breakcontainer">
-				<div id="breakbtn">
-					<a class="btn btn-default btn-md" id="breakMinus"><i class="fa fa-minus" id="break-decrease"
-							aria-hidden="true"></i></a>
-					<span id="breaklength">break</span>
-					<a class="btn btn-default btn-md" id="breakPlus"><i class="fa fa-plus" id="break-increase"
-							aria-hidden="true"></i></a>
-				</div>
-			</div>
+      <!-- Mode Tabs -->
+      <div class="mode-tabs" role="tablist">
+        <button class="mode-tab active" id="workTab" type="button">Work</button>
+        <button class="mode-tab" id="breakTab" type="button">Break</button>
+      </div>
 
-			<div class="durationcontainer">
-				<div id="durationbtn">
-					<a class="btn btn-default btn-md" id="durationMinus"><i class="fa fa-minus" id="break-decrease"
-							aria-hidden="true"></i></a>
-					<span id="durationlength">duration</span>
-					<a class="btn btn-default btn-md" id="durationPlus"><i class="fa fa-plus" id="break-increase"
-							aria-hidden="true"></i></a>
-				</div>
-			</div>
-		</div>
+      <!-- Timer Display -->
+      <div class="timer-card">
+        <svg class="progress-ring" viewBox="0 0 300 300">
+          <circle
+            class="progress-ring-track"
+            cx="150"
+            cy="150"
+            r="130"
+            fill="none"
+            stroke-width="12"
+          />
+          <circle
+            class="progress-ring-bar"
+            id="progressRing"
+            cx="150"
+            cy="150"
+            r="130"
+            fill="none"
+            stroke-width="12"
+            stroke-linecap="round"
+          />
+        </svg>
+        <div class="timer-center">
+          <div class="timer-status" id="timerStatus">Ready</div>
+          <div class="timer-time" id="timerDisplay">25:00</div>
+          <div class="timer-session" id="sessionLabel">Work Session</div>
+        </div>
+      </div>
 
-		<div id="display">
-			<h2>Work Time</h2><br />
-			<div id="workTime"></div>
-			<h2>Break Time</h2><br />
-			<div id="breakTime"></div>
-		</div>
+      <!-- Controls -->
+      <div class="controls">
+        <button class="btn btn-primary" id="startBtn" type="button">
+          <span class="btn-icon" id="startIcon">&#9654;</span>
+          <span id="startLabel">Start</span>
+        </button>
+        <button class="btn btn-secondary" id="resetBtn" type="button">
+          &#8635; Reset
+        </button>
+      </div>
 
-		<div id="bottom">
-			<button class="btn btn-default btn-lg" id="startClock">Start Clock</button>
-			<button class="btn btn-default btn-lg disabled" id="stopClock">Stop Clock</button>
-			<button class="btn btn-default btn-lg" id="resetClock">Reset Clock</button>
-		</div>
-	</div>
+      <!-- Settings -->
+      <div class="settings">
+        <div class="setting">
+          <div class="setting-label">Work Length</div>
+          <div class="setting-control">
+            <button
+              class="step-btn"
+              id="workMinus"
+              type="button"
+              aria-label="Decrease work length"
+            >
+              &minus;
+            </button>
+            <div class="setting-value">
+              <span id="workValue">25</span>
+              <small>min</small>
+            </div>
+            <button
+              class="step-btn"
+              id="workPlus"
+              type="button"
+              aria-label="Increase work length"
+            >
+              +
+            </button>
+          </div>
+        </div>
 
-	<footer>
-		<a href="https://www.freecodecamp.com/corneal64" target="_blank">Coded By Cornelius</a>
-	</footer>
+        <div class="setting-divider"></div>
 
-	<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js'></script>
-	<script src="./script.js"></script>
+        <div class="setting">
+          <div class="setting-label">Break Length</div>
+          <div class="setting-control">
+            <button
+              class="step-btn"
+              id="breakMinus"
+              type="button"
+              aria-label="Decrease break length"
+            >
+              &minus;
+            </button>
+            <div class="setting-value">
+              <span id="breakValue">5</span>
+              <small>min</small>
+            </div>
+            <button
+              class="step-btn"
+              id="breakPlus"
+              type="button"
+              aria-label="Increase break length"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
 
-</body>
+      <p class="cycles" id="cycleCount">0 completed cycles</p>
+    </main>
 
+    <footer class="footer">
+      <a href="https://github.com/corneal64" target="_blank" rel="noopener"
+        >Coded by Cornelius</a
+      >
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
 </html>

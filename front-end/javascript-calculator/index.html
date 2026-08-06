@@ -1,64 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<title>Javascript Calculator</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
-	<link rel="stylesheet" href="./style.css">
-</head>
+  <body>
+    <div class="calculator">
+      <div class="calculator-header">
+        <span class="brand">Calculator</span>
+        <span class="status" id="status">Ready</span>
+      </div>
 
-<body>
-	<div class="" id="calcBodyCover">
+      <div class="display">
+        <div class="expression" id="expression">&nbsp;</div>
+        <div class="result" id="result">0</div>
+      </div>
 
-		<div class="container" id="calcBody">
-			<input id="screen" value="" disabled>
+      <div class="buttons">
+        <button class="btn btn-function" data-action="clear">AC</button>
+        <button class="btn btn-function" data-action="erase">&#9003;</button>
+        <button class="btn btn-function" data-action="percent">%</button>
+        <button class="btn btn-operator" data-value="/">&divide;</button>
 
-			<div class="row">
-				<div class="col-xs-3 btn btn-default" id="clear">c</div>
-				<div class="col-xs-3 btn btn-default" id="erase"><i class="fa fa-arrow-left"></i></div>
-				<div class="col-xs-3 btn btn-default char" value="%" id="percent">%</div>
-				<div class="col-xs-3 btn btn-default char" value="/" id="divide">&divide;</div>
-			</div>
+        <button class="btn btn-number" data-value="7">7</button>
+        <button class="btn btn-number" data-value="8">8</button>
+        <button class="btn btn-number" data-value="9">9</button>
+        <button class="btn btn-operator" data-value="*">&times;</button>
 
-			<div class="row">
-				<div class="col-xs-3 btn btn-default char" value="7" id="nine">7</div>
-				<div class="col-xs-3 btn btn-default char" value="8" id="nine">8</div>
-				<div class="col-xs-3 btn btn-default char" value="9" id="nine">9</div>
-				<div class="col-xs-3 btn btn-default char" value="*" id="times">&times;</div>
-			</div>
+        <button class="btn btn-number" data-value="4">4</button>
+        <button class="btn btn-number" data-value="5">5</button>
+        <button class="btn btn-number" data-value="6">6</button>
+        <button class="btn btn-operator" data-value="-">&minus;</button>
 
-			<div class="row">
-				<div class="col-xs-3 btn btn-default char" value="4" id="four">4</div>
-				<div class="col-xs-3 btn btn-default char" value="5" id="five">5</div>
-				<div class="col-xs-3 btn btn-default char" value="6" id="six">6</div>
-				<div class="col-xs-3 btn btn-default char" value="-" id="minus">&minus;</div>
-			</div>
+        <button class="btn btn-number" data-value="1">1</button>
+        <button class="btn btn-number" data-value="2">2</button>
+        <button class="btn btn-number" data-value="3">3</button>
+        <button class="btn btn-operator" data-value="+">+</button>
 
-			<div class="row">
-				<div class="col-xs-3 btn btn-default char" value="1" id="one">1</div>
-				<div class="col-xs-3 btn btn-default char" value="2" id="two">2</div>
-				<div class="col-xs-3 btn btn-default char" value="3" id="three">3</div>
-				<div class="col-xs-3 btn btn-default char" value="+" id="plus">&plus;</div>
-			</div>
+        <button class="btn btn-number btn-zero" data-value="0">0</button>
+        <button class="btn btn-number" data-value=".">.</button>
+        <button class="btn btn-equals" data-action="equals">=</button>
+      </div>
 
-			<div class="row">
-				<div class="col-xs-3 btn btn-default char" value="0" id="zero">0</div>
-				<div class="col-xs-3 btn btn-default char" value="." id="dot">.</div>
-				<div class="col-xs-3 btn btn-default" id="answer">Ans</div>
-				<div class="col-xs-3 btn btn-default" id="equals">=</div>
-			</div>
-		</div>
-	</div>
+      <footer>
+        <p>
+          Made with <span class="heart">&hearts;</span> by
+          <a href="https://github.com/corneal64" target="_blank" rel="noopener"
+            >Cornelius</a
+          >
+        </p>
+      </footer>
+    </div>
 
-	<footer>
-		<p><a href="https://www.freecodecamp.com/corneal64" target="_blank">Coded By Cornelius</a></p>
-	</footer>
-
-	<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-	<script src="./script.js"></script>
-</body>
-
+    <script src="./script.js"></script>
+  </body>
 </html>

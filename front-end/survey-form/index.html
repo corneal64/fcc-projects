@@ -1,80 +1,162 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Survey Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-	<title>Survey Form</title>
-	<link rel="stylesheet" href="style.css">
-</head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 id="title">Survey Form</h1>
+        <p id="description">Let us know more about your life</p>
+      </header>
 
-<body>
-	<div class="container">
-		<h1 id="title">Survey Form</h1>
-		<p id="description">Let us know more about your life</p>
+      <form action="#" id="survey-form">
+        <div class="form-section">
+          <h2 class="section-title">Personal Information</h2>
 
-		<form action="#" id="survey-form">
-			<label id="name-label" for="name">Name</label>
-			<input type="text" name="name" required id="name" placeholder="Your Name" />
+          <div class="form-group">
+            <label id="name-label" for="name">Name</label>
+            <input
+              type="text"
+              name="name"
+              required
+              id="name"
+              placeholder="Enter your full name"
+            />
+          </div>
 
-			<br />
-			<label id="email-label" for="email">Email</label>
-			<input type="email" name="email" required id="email" placeholder="Your Email" />
-			<br />
+          <div class="form-group">
+            <label id="email-label" for="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              required
+              id="email"
+              placeholder="you@example.com"
+            />
+          </div>
 
-			<label id="number-label" or="age">Age</label>
-			<input type="number" name="age" id="number" min="12" max="102" placeholder="Your Age" />
-			<br />
+          <div class="form-group">
+            <label id="number-label" for="number">Age</label>
+            <input
+              type="number"
+              name="age"
+              id="number"
+              min="12"
+              max="102"
+              placeholder="Enter your age"
+            />
+          </div>
 
-			<div class="gender">
-				<label id="gender" for="dropdown">What's your gender?</label>
-				<select name="gender" id="dropdown">
-					<option value="male">Male</option>
-					<option value="female">Female</option>
-					<option value="others">Others</option>
-				</select>
-			</div>
+          <div class="form-group">
+            <label id="gender" for="dropdown">What's your gender?</label>
+            <select name="gender" id="dropdown">
+              <option value="" disabled selected>Select your gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
+        </div>
 
-			<div class="game">
-				<label id="gameTitle" for="game">Rock, Paper or Scissors?</label>
-				<div class="gameChoices">
-					<input type="radio" name="game" value="rock" /> Rock
-					<br />
-					<input type="radio" name="game" value="paper" /> Paper
-					<br />
-					<input type="radio" name="game" value="scissors" /> Scissors
-					<br />
-				</div>
-			</div>
+        <div class="form-section">
+          <h2 class="section-title">Preferences</h2>
 
-			<div class="drinks">
-				<label id="drinkQuestion">What are your favorite drinks?</label>
-				<br />
-				<div class="drinkChoices">
-					<input type="checkbox" name="coke" value="coke" /> Coke
-					<br />
-					<input type="checkbox" name="pepsi" value="pepsi" /> Pepsi
-					<br />
-					<input type="checkbox" name="dew" value="dew" /> Mountain Dew
-					<br />
-					<input type="checkbox" name="7up" value="7up" /> 7Up
-				</div>
-			</div>
-			<div class="comments">
-				<label for="comments">Do you have any comments about this survey?</label>
-				<br />
-				<textarea name="comments" id="comments" rows="5"></textarea>
-			</div>
+          <div class="form-group">
+            <label id="gameTitle">Rock, Paper or Scissors?</label>
+            <div class="choice-group">
+              <label class="choice-item">
+                <input type="radio" name="game" value="rock" />
+                <span class="radio-custom"></span>
+                <span class="choice-text">Rock</span>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="game" value="paper" />
+                <span class="radio-custom"></span>
+                <span class="choice-text">Paper</span>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="game" value="scissors" />
+                <span class="radio-custom"></span>
+                <span class="choice-text">Scissors</span>
+              </label>
+            </div>
+          </div>
 
-			<input type="submit" id="submit" value="Submit Form" />
-		</form>
+          <div class="form-group">
+            <label id="drinkQuestion">What are your favorite drinks?</label>
+            <div class="choice-group">
+              <label class="choice-item">
+                <input type="checkbox" name="coke" value="coke" />
+                <span class="checkbox-custom"></span>
+                <span class="choice-text">Coke</span>
+              </label>
+              <label class="choice-item">
+                <input type="checkbox" name="pepsi" value="pepsi" />
+                <span class="checkbox-custom"></span>
+                <span class="choice-text">Pepsi</span>
+              </label>
+              <label class="choice-item">
+                <input type="checkbox" name="dew" value="dew" />
+                <span class="checkbox-custom"></span>
+                <span class="choice-text">Mountain Dew</span>
+              </label>
+              <label class="choice-item">
+                <input type="checkbox" name="7up" value="7up" />
+                <span class="checkbox-custom"></span>
+                <span class="choice-text">7Up</span>
+              </label>
+            </div>
+          </div>
+        </div>
 
-		<footer class="footer">
-			Created By <a target=_blank href="https://www.freecodecamp.com/corneal64">Cornelius</a>
-		</footer>
-	</div>
+        <div class="form-section">
+          <h2 class="section-title">Feedback</h2>
 
-</body>
+          <div class="form-group">
+            <label for="comments"
+              >Do you have any comments about this survey?</label
+            >
+            <textarea
+              name="comments"
+              id="comments"
+              rows="5"
+              placeholder="Share your thoughts here..."
+            ></textarea>
+          </div>
+        </div>
 
+        <button type="submit" id="submit">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+          Submit Form
+        </button>
+      </form>
+
+      <footer class="footer">
+        Created By
+        <a target="_blank" href="https://www.github.com/corneal64">Cornelius</a>
+      </footer>
+    </div>
+  </body>
 </html>

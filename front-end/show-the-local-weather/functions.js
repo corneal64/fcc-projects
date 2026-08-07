@@ -1,107 +1,218 @@
-function renderData(data) {
-    let imgUrl = `https://www.metaweather.com/static/img/weather/${data.weather_data[0].weather_state_abbr}.svg`;
+// Map WMO weather codes to descriptions and Font Awesome icons
+const weatherCodeMap = {
+  0: { description: "Clear sky", icon: "fa-sun", color: "#fbc531" },
+  1: { description: "Mainly clear", icon: "fa-sun", color: "#fbc531" },
+  2: { description: "Partly cloudy", icon: "fa-cloud-sun", color: "#f5f6fa" },
+  3: { description: "Overcast", icon: "fa-cloud", color: "#dcdde1" },
+  45: { description: "Fog", icon: "fa-smog", color: "#a4b0be" },
+  48: { description: "Depositing rime fog", icon: "fa-smog", color: "#a4b0be" },
+  51: { description: "Light drizzle", icon: "fa-cloud-rain", color: "#70a1ff" },
+  53: {
+    description: "Moderate drizzle",
+    icon: "fa-cloud-rain",
+    color: "#70a1ff",
+  },
+  55: { description: "Dense drizzle", icon: "fa-cloud-rain", color: "#70a1ff" },
+  56: {
+    description: "Freezing drizzle",
+    icon: "fa-cloud-rain",
+    color: "#70a1ff",
+  },
+  57: {
+    description: "Dense freezing drizzle",
+    icon: "fa-cloud-rain",
+    color: "#70a1ff",
+  },
+  61: {
+    description: "Light rain",
+    icon: "fa-cloud-showers-heavy",
+    color: "#70a1ff",
+  },
+  63: {
+    description: "Moderate rain",
+    icon: "fa-cloud-showers-heavy",
+    color: "#70a1ff",
+  },
+  65: {
+    description: "Heavy rain",
+    icon: "fa-cloud-showers-heavy",
+    color: "#487eb0",
+  },
+  66: {
+    description: "Freezing rain",
+    icon: "fa-cloud-showers-heavy",
+    color: "#487eb0",
+  },
+  67: {
+    description: "Heavy freezing rain",
+    icon: "fa-cloud-showers-heavy",
+    color: "#487eb0",
+  },
+  71: { description: "Light snow", icon: "fa-snowflake", color: "#74b9ff" },
+  73: { description: "Moderate snow", icon: "fa-snowflake", color: "#74b9ff" },
+  75: { description: "Heavy snow", icon: "fa-snowflake", color: "#74b9ff" },
+  77: { description: "Snow grains", icon: "fa-snowflake", color: "#74b9ff" },
+  80: {
+    description: "Light rain showers",
+    icon: "fa-cloud-rain",
+    color: "#70a1ff",
+  },
+  81: {
+    description: "Moderate rain showers",
+    icon: "fa-cloud-rain",
+    color: "#70a1ff",
+  },
+  82: {
+    description: "Violent rain showers",
+    icon: "fa-cloud-showers-heavy",
+    color: "#487eb0",
+  },
+  85: {
+    description: "Light snow showers",
+    icon: "fa-snowflake",
+    color: "#74b9ff",
+  },
+  86: {
+    description: "Heavy snow showers",
+    icon: "fa-snowflake",
+    color: "#74b9ff",
+  },
+  95: { description: "Thunderstorm", icon: "fa-bolt", color: "#f5cd79" },
+  96: {
+    description: "Thunderstorm with hail",
+    icon: "fa-bolt",
+    color: "#f5cd79",
+  },
+  99: {
+    description: "Thunderstorm with heavy hail",
+    icon: "fa-bolt",
+    color: "#f5cd79",
+  },
+};
 
-    $("#location").text(`${data.city}, ${data.country}`);
-    $("#todaysDate").text(`${new Date(data.time).toLocaleDateString()}`);
+function renderData(weather, geocode) {
+  const current = weather.current;
+  const daily = weather.daily;
+  const weatherCode = current.weather_code;
+  const weatherInfo = weatherCodeMap[weatherCode] || {
+    description: "Unknown",
+    icon: "fa-cloud",
+    color: "#dcdde1",
+  };
 
-    $("#temperature").html(
-        `${Math.round(data.weather_data[0].the_temp)}&#x2103;`
-    );
-    $("#pic").html(`<img src=${imgUrl} />`);
+  const city = geocode.city || geocode.locality || "Unknown City";
+  const country = geocode.countryName || geocode.country || "";
+  const location = country ? `${city}, ${country}` : city;
 
-    $("#sunrise").html(`<i class="fas fa-sun fa-2x"> ${data.sunrise}</i>`);
-    $("#sunset").html(`<i class="fas fa-moon fa-2x"> ${data.sunset}</i>`);
+  // Hide loader and show the main content
+  $("#loader").fadeOut(400, function () {
+    $(".main").fadeIn();
+  });
 
-    $("#minTemp").html(
-        `<i class="fas fa-thermometer-quarter fa-2x"> ${Math.round(
-        data.weather_data[0].min_temp
-      )}&#x2103;</i>`
-    );
-    $("#maxTemp").html(
-        `<i class="fas fa-thermometer-three-quarters fa-2x"> ${Math.round(
-        data.weather_data[0].max_temp
-      )}&#x2103;</i>`
-    );
+  // Location & date
+  $("#location").text(location);
+  $("#todaysDate").text(formatFullDate(current.time));
 
-    $("#humidity").html(
-        `<i class="fas fa-tint fa-2x"> ${Math.round(
-        data.weather_data[0].humidity
-      )}%</i>`
-    );
-    $("#windSpeed").html(
-        `<i class="fas fa-wind fa-2x"> ${Math.round(
-        data.weather_data[0].wind_speed
-      )} mph</i>`
-    );
+  // Current weather icon and description
+  $("#weatherIcon").html(
+    `<i class="fas ${weatherInfo.icon}" style="color: ${weatherInfo.color};"></i>`,
+  );
+  $("#weatherDesc").text(weatherInfo.description);
 
-    const moreWeatherInfo = fetchMoreWeatherInfo(weatherInfo);
-    $("#tableBody").append(`${moreWeatherInfo.join("")}`);
+  // Temperature
+  $("#temperature").text(`${Math.round(current.temperature_2m)}°`);
+  $("#feelsLike").text(
+    `Feels like ${Math.round(current.apparent_temperature)}°`,
+  );
+
+  // Weather stats
+  $("#minTemp").html(
+    `<i class="fas fa-thermometer-quarter"></i> ${Math.round(daily.temperature_2m_min[0])}°`,
+  );
+  $("#maxTemp").html(
+    `<i class="fas fa-thermometer-three-quarters"></i> ${Math.round(daily.temperature_2m_max[0])}°`,
+  );
+  $("#humidity").html(
+    `<i class="fas fa-tint"></i> ${current.relative_humidity_2m}%`,
+  );
+  $("#windSpeed").html(
+    `<i class="fas fa-wind"></i> ${Math.round(current.wind_speed_10m)} km/h`,
+  );
+
+  // Sunrise/Sunset
+  $("#sunrise").html(
+    `<i class="fas fa-sun"></i> Sunrise: ${formatTime(daily.sunrise[0])}`,
+  );
+  $("#sunset").html(
+    `<i class="fas fa-moon"></i> Sunset: ${formatTime(daily.sunset[0])}`,
+  );
+
+  // Render 7-day forecast
+  renderForecast(daily);
 }
 
-$("#showMore").click(() => {
-    $("#moreInfo").removeClass("animated fadeOut");
-    $("#moreInfo").addClass("animated fadeIn");
-    $("#moreInfo").slideToggle(500);
-    $("#showMore").hide();
-    $("#showLess").show();
-    $(".footer").slideToggle();
-});
+function renderForecast(daily) {
+  const tableBody = $("#tableBody");
+  tableBody.empty();
 
-$("#showLess").click(() => {
-    $("#moreInfo").removeClass("animated fadeIn");
-    $("#moreInfo").addClass("animated fadeOut");
-    $("#moreInfo").slideToggle(700);
-    $("#showLess").hide();
-    $("#showMore").show();
-    $(".footer").slideToggle();
-});
+  for (let i = 1; i < daily.time.length; i++) {
+    const code = daily.weather_code[i];
+    const info = weatherCodeMap[code] || {
+      description: "Unknown",
+      icon: "fa-cloud",
+      color: "#dcdde1",
+    };
+    const date = new Date(daily.time[i]);
+    const dayName = getWeekday(date);
 
-function fetchMoreWeatherInfo(weatherInfo) {
-    let moreInfo = [];
-
-    for (i = 1; i < 6; i++) {
-        let info = `
+    const row = `
       <tr>
-      <td class="text-left align-middle weekday">${getWeekday(
-        weatherInfo.weather_data[i].applicable_date
-      )}
-      </td>
-      <td class="text-right align-middle temp">${Math.round(
-        weatherInfo.weather_data[i].the_temp
-      )}&#x2103;
-      </td>
-      <td class="text-right align-middle weatherIcon"><img src='${`https://www.metaweather.com/static/img/weather/${weatherInfo.weather_data[i].weather_state_abbr}.svg'`} /></td></tr>`;
-
-        moreInfo.push(info);
-    }
-    return moreInfo;
+        <td class="text-left align-middle weekday">${dayName}</td>
+        <td class="text-center align-middle forecast-icon">
+          <i class="fas ${info.icon}" style="color: ${info.color};"></i>
+        </td>
+        <td class="text-right align-middle temp-range">
+          <span class="temp-min">${Math.round(daily.temperature_2m_min[i])}°</span>
+          <span class="temp-max">${Math.round(daily.temperature_2m_max[i])}°</span>
+        </td>
+      </tr>
+    `;
+    tableBody.append(row);
+  }
 }
 
-function formatTime(time) {
-    let timeStr = new Date(time).toLocaleTimeString();
-    let newTime = [];
+// Toggle forecast panel
+$("#showMore").click(function () {
+  $(".forecast-section").slideToggle(400);
+  $("#showMore").hide();
+  $("#showLess").show();
+});
 
-    newTime.push(timeStr.split(":")[0]);
-    newTime.push(timeStr.split(":")[1]);
+$("#showLess").click(function () {
+  $(".forecast-section").slideToggle(400);
+  $("#showLess").hide();
+  $("#showMore").show();
+});
 
-    return `${newTime.join(":")} ${timeStr
-      .split(":")[2]
-      .split(" ")
-      .splice(1, 1)}`;
+function formatTime(timeString) {
+  const date = new Date(timeString);
+  let hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const period = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12;
+  return `${hours}:${minutes} ${period}`;
+}
+
+function formatFullDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
 function getWeekday(date) {
-    const d = new Date(date);
-    const weekday = new Array(7);
-
-    weekday[0] = "Sunday";
-    weekday[1] = "Monday";
-    weekday[2] = "Tuesday";
-    weekday[3] = "Wednesday";
-    weekday[4] = "Thursday";
-    weekday[5] = "Friday";
-    weekday[6] = "Saturday";
-
-    const day = weekday[d.getDay()];
-    return day;
+  return date.toLocaleDateString("en-US", { weekday: "long" });
 }

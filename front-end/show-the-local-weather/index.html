@@ -1,86 +1,101 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Local Weather</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Local Weather</title>
-	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css'>
-	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css'>
-	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css'>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css">
-	<link rel="stylesheet" href="./style.css">
-</head>
+  <body>
+    <div class="bg-animation"></div>
 
-<body>
-	<div id="loader" class="text-center">
-		<div class="spinner-border text-info" role="status">
-			<span class="sr-only">Loading...</span>
-		</div>
-	</div>
+    <div id="loader" class="text-center">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+      <p class="loader-text">Locating your weather...</p>
+    </div>
 
-	<div class="main">
-		<div id="weather" class="title text-primary text-center"></div>
+    <div class="main" style="display: none">
+      <div class="container">
+        <div class="card weather-card">
+          <div class="card-header">
+            <div class="location-info">
+              <h3 id="location" class="location-title">
+                <i class="fas fa-map-marker-alt"></i>
+              </h3>
+              <p id="todaysDate" class="date-text"></p>
+            </div>
+            <div class="current-weather">
+              <div id="weatherIcon" class="weather-icon"></div>
+              <div class="temp-wrapper">
+                <h1 id="temperature" class="temperature"></h1>
+                <p id="feelsLike" class="feels-like"></p>
+              </div>
+              <p id="weatherDesc" class="weather-desc"></p>
+            </div>
+          </div>
 
-		<div class="container">
-			<div class="card">
-				<div id="weatherCard" class="card-body">
-					<h3 id="location" class="card-title text-center"></h3>
-					<h6 id="todaysDate" class="card-title text-center font-weight-bold"></h6>
+          <div class="card-body">
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span id="minTemp" class="stat-value"></span>
+              </div>
+              <div class="stat-item">
+                <span id="maxTemp" class="stat-value"></span>
+              </div>
+              <div class="stat-item">
+                <span id="humidity" class="stat-value"></span>
+              </div>
+              <div class="stat-item">
+                <span id="windSpeed" class="stat-value"></span>
+              </div>
+            </div>
 
+            <div class="sun-info">
+              <span id="sunrise" class="sun-item"></span>
+              <span id="sunset" class="sun-item"></span>
+            </div>
 
-					<div class="info-body">
-						<table class="table table-borderless weatherInfo">
-							<tbody>
-								<tr>
-									<td id="temperature" class="card-title text-center"></td>
-									<td class="align-middle" id="pic"></td>
-								</tr>
-								<tr>
-									<td class="align-middle" id="sunrise"></td>
-									<td class="align-middle" id="sunset"></td>
-								</tr>
-								<tr>
-									<td class="align-middle" id="minTemp"></td>
-									<td class="align-middle" id="maxTemp"></td>
-								</tr>
-								<tr>
-									<td class="align-middle" id="humidity"></td>
-									<td class="align-middle" id="windSpeed"></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+            <p id="showMore" class="toggle-btn">
+              <i class="fas fa-chevron-down"></i> Show forecast
+            </p>
 
-					<p id="showMore" class="card-text text-center"><i class="fas fa-2x fa-minus"></i></p>
-				</div>
+            <div class="forecast-section">
+              <h4 class="forecast-title">7-Day Forecast</h4>
+              <table class="table forecast-table">
+                <tbody id="tableBody"></tbody>
+              </table>
+            </div>
 
-				<div id="moreInfo" class="card-body">
+            <p id="showLess" class="toggle-btn" style="display: none">
+              <i class="fas fa-chevron-up"></i> Hide forecast
+            </p>
+          </div>
+        </div>
 
-					<table class="table table-borderless extraWeatherInfo">
-						<tbody id="tableBody">
-						</tbody>
-					</table>
+        <div class="footer text-center">
+          Made with <i class="fa fa-heart"></i> by
+          <a href="http://www.github.com/corneal64" target="_blank"
+            >Cornelius</a
+          >
+        </div>
+      </div>
+    </div>
 
-					<p id="showLess" class="card-text text-center"><i class="fas fa-2x fa-minus"></i></p>
-				</div>
-			</div>
-		</div>
-
-		<div class="footer text-center">Made with <i class="fa fa-heart"></i> by <a
-				href="http://www.twitter.com/corneal64" target="_blank">Cornelius</a>
-		</div>
-	</div>
-
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js'></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js">
-	</script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/js/bootstrap.min.js'></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js">
-	</script>
-	<script src="./script.js"></script>
-	<script src="./functions.js"></script>
-
-</body>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    <script src="./script.js"></script>
+    <script src="./functions.js"></script>
+  </body>
 </html>

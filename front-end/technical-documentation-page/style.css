@@ -721,15 +721,20 @@ kbd {
   position: fixed;
   inset: 0;
   background: rgba(16, 24, 40, 0.5);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   opacity: 0;
-  transition: opacity var(--transition-base);
+  visibility: hidden;
+  transition:
+    opacity var(--transition-base),
+    visibility var(--transition-base);
   z-index: 900;
 }
 
 .overlay.show {
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 /* ---------- Scroll to Top Button ---------- */
@@ -791,6 +796,7 @@ kbd {
     top: 0;
     transform: translateX(-100%);
     box-shadow: var(--shadow-lg);
+    z-index: 1000;
   }
 
   .sidebar.open {
@@ -799,11 +805,6 @@ kbd {
 
   .overlay {
     display: block;
-    pointer-events: none;
-  }
-
-  .overlay.show {
-    pointer-events: auto;
   }
 
   .docs {

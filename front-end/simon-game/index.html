@@ -1,57 +1,88 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simon Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<head>
-	<meta charset="utf-8">
-	<title>Simon Game</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-	<link rel="stylesheet" href="style.css">
-</head>
+  <body>
+    <div class="game-container">
+      <header class="game-header">
+        <h1 class="game-title">Simon <span class="title-reg">&reg;</span></h1>
+        <p class="game-subtitle">Test your memory</p>
+      </header>
 
-<body>
+      <main class="game-board" aria-label="Simon game board">
+        <div
+          class="pad pad-red"
+          id="red"
+          data-color="red"
+          role="button"
+          tabindex="0"
+          aria-label="Red pad"
+        ></div>
+        <div
+          class="pad pad-green"
+          id="green"
+          data-color="green"
+          role="button"
+          tabindex="0"
+          aria-label="Green pad"
+        ></div>
+        <div
+          class="pad pad-yellow"
+          id="yellow"
+          data-color="yellow"
+          role="button"
+          tabindex="0"
+          aria-label="Yellow pad"
+        ></div>
+        <div
+          class="pad pad-blue"
+          id="blue"
+          data-color="blue"
+          role="button"
+          tabindex="0"
+          aria-label="Blue pad"
+        ></div>
 
-	<div class="container board">
+        <div class="center-console">
+          <div class="level-display" id="level">Level 1</div>
+          <div class="status-display" id="message">Press Start to play</div>
+        </div>
+      </main>
 
-		<div class="topbar">
-			<span id="title">Simon &reg; </span>
-			<span id="level"> </span>
-		</div>
+      <section class="controls" aria-label="Game controls">
+        <button class="btn btn-start" id="btn1">Start</button>
+        <button class="btn btn-strict" id="strictMode">Normal Mode</button>
+        <button class="btn btn-sound" id="sound" aria-label="Toggle sound">
+          <svg
+            class="icon"
+            id="volume"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
+            />
+          </svg>
+        </button>
+      </section>
 
-		<table class="table table-responsive">
-			<tr class="row">
-				<td class="box row1col1" id="red"></td>
-				<td class="box row1col2" id="green"></td>
-			</tr>
+      <footer class="game-footer">
+        Created by
+        <a
+          href="https://www.github.com/corneal64"
+          target="_blank"
+          rel="noopener"
+          >Cornelius</a
+        >
+      </footer>
+    </div>
 
-			<tr class="row">
-				<td class="box row2col1" id="yellow"></td>
-				<td class="box row2col2" id="blue"></td>
-			</tr>
-		</table>
-
-		<div class="" id="message"></div>
-
-		<div class="buttons">
-			<div class="btn-group">
-				<button class="btn btn-success btn-lg stopped" id="btn1">Start</button>
-				<button class="btn btn-warning btn-lg" id="strictMode">Normal Mode</button>
-				<button class="btn btn-default btn-lg" id="sound"><span class="glyphicon glyphicon-volume-up"
-						id="volume"></span></button>
-			</div>
-		</div>
-
-		<footer class="footer">
-			<br />
-			Created By <a target=_blank href="https://www.freecodecamp.com/corneal64">Cornelius</a>
-		</footer>
-	</div>
-
-</body>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js">
-</script>
-<script type="text/javascript" src="script.js"></script>
-
+    <script src="script.js"></script>
+  </body>
 </html>

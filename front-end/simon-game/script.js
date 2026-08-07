@@ -1,251 +1,241 @@
-var game = {
-	count: 1,
-	possibilities: ['red', 'green', 'yellow', 'blue'],
-	currentGame: [],
-	playerInput: [],
-	winMessages: ['Awesome!', "That's amazing!", "Keep going!", "You're doing great!", "Nice!", "Epic!", "Marvelous!", "Wonderful!", "Excellent!", "Fabulous!"],
-	sounds: {
-		red: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
-		green: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
-		yellow: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3'),
-		blue: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3')
-	},
-	strict: false,
-	sound: true
+const game = {
+  count: 1,
+  possibilities: ["red", "green", "yellow", "blue"],
+  currentGame: [],
+  playerInput: [],
+  winMessages: [
+    "Awesome!",
+    "That's amazing!",
+    "Keep going!",
+    "You're doing great!",
+    "Nice!",
+    "Epic!",
+    "Marvelous!",
+    "Wonderful!",
+    "Excellent!",
+    "Fabulous!",
+  ],
+  sounds: {
+    red: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"),
+    green: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"),
+    yellow: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"),
+    blue: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"),
+  },
+  strict: false,
+  sound: true,
+  isPlaying: false, // true while the sequence is being shown
+  isGameActive: false, // true when a game is in progress
+  sequenceTimer: null,
 };
 
-$(document).ready(function() {
+const pads = document.querySelectorAll(".pad");
+const startBtn = document.getElementById("btn1");
+const strictBtn = document.getElementById("strictMode");
+const soundBtn = document.getElementById("sound");
+const volumeIcon = document.getElementById("volume");
+const levelDisplay = document.getElementById("level");
+const messageDisplay = document.getElementById("message");
 
-	initializeGame();
+// ---------- Event Listeners ----------
 
-	$("#sound").on("click", function() {
-		if ($("#volume").hasClass("glyphicon-volume-up")) {
-
-			$("#volume").removeClass("glyphicon-volume-up");
-			$("#volume").addClass("glyphicon-volume-off");
-			game.sound = false;
-
-		} else {
-			$("#volume").addClass("glyphicon-volume-up");
-			game.sound = true;
-		}
-
-	});
-
-	$(".menu").on("click", function() {
-		$(".buttons").addClass("animated fadeInDown");
-		$(".buttons").toggle();
-	});
-
-	$("#btn1").click(function() {
-		if ($("#btn1").hasClass("stopped")) {
-			$("#btn1").removeClass("stopped");
-			$("#btn1").addClass("started");
-			$("#btn1").text("Restart");
-			$("#btn1").removeClass("btn-success");
-			$("#btn1").addClass("btn-danger");
-			$(".box").css({
-				"pointer-events": "auto"
-			});
-			startGame();
-		} else if ($("#btn1").hasClass("started")) {
-			stopGame();
-		};
-	});
-
-	$("#strictMode").click(function() {
-		if (!game.strict) {
-			game.strict = true;
-			$(this).text("Strict Mode");
-		} else {
-			game.strict = false;
-			$(this).text("Normal Mode");
-		};
-	});
-
-	$(".box").click(function() {
-		lightUp($(this).attr("id"));
-		game.playerInput.push($(this).attr("id"));
-		checkGameState();
-	});
+startBtn.addEventListener("click", () => {
+  if (startBtn.classList.contains("started")) {
+    stopGame();
+  } else {
+    startGame();
+  }
 });
 
-// Checks current game status;
-function checkGameState() {
+strictBtn.addEventListener("click", () => {
+  game.strict = !game.strict;
+  strictBtn.textContent = game.strict ? "Strict Mode" : "Normal Mode";
+  strictBtn.classList.toggle("active", game.strict);
+});
 
-	if (game.strict) {
-		if (game.playerInput.length === game.currentGame.length) {
-			if (_.isEqual(game.currentGame, game.playerInput)) {
-				game.count++;
-				if (game.count <= 20) {
+soundBtn.addEventListener("click", () => {
+  game.sound = !game.sound;
+  soundBtn.classList.toggle("muted", !game.sound);
+  if (game.sound) {
+    volumeIcon.innerHTML =
+      '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
+  } else {
+    volumeIcon.innerHTML =
+      '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
+  }
+});
 
-					$("#message").text(pickAWord() + " Next Level!");
-					$("#message").addClass("animated swing");
+pads.forEach((pad) => {
+  pad.addEventListener("click", () => {
+    if (!game.isGameActive || game.isPlaying) return;
+    handlePlayerInput(pad.dataset.color);
+  });
 
-					nextLevel();
-					showMoves(game.currentGame);
-				} else {
-					$("#message").text("Congratulations! You Won!");
-					$("#message").addClass("animated swing");
-					if (playAgain()) {
-						$("#yes").click(function() {
-							startGame();
+  pad.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (!game.isGameActive || game.isPlaying) return;
+      handlePlayerInput(pad.dataset.color);
+    }
+  });
+});
 
-							$("#message").text("");
-							$("#message").text("");
-							$("#level").text(" LEVEL " + game.count);
+// ---------- Game Logic ----------
 
-						});
-						$("#no").click(function() {
+function handlePlayerInput(color) {
+  // Ignore clicks beyond the current sequence length
+  if (game.playerInput.length >= game.currentGame.length) return;
 
-							$("#message").text("");
-							$("#message").text("");
-							stopGame();
-						});
-					};
-				};
-			} else {
+  lightUp(color);
+  game.playerInput.push(color);
 
-				$("#message").text("Ouch!! Back to level 1");
-				$("#message").addClass("animated swing");
+  const currentIndex = game.playerInput.length - 1;
+  const isCorrect =
+    game.playerInput[currentIndex] === game.currentGame[currentIndex];
 
-				startGame();
-				$("#level").text(" LEVEL " + game.count);
-			};
-		};
-	} else {
-		if (game.playerInput.length === game.currentGame.length) {
-			if (_.isEqual(game.currentGame, game.playerInput)) {
-				game.count++;
-				if (game.count <= 20) {
+  if (!isCorrect) {
+    if (game.strict) {
+      showMessage("Ouch!! Back to level 1", "error");
+      setTimeout(() => startGame(), 1200);
+    } else {
+      showMessage("Oops... that's not correct. Try Again!", "error");
+      game.playerInput = [];
+      setTimeout(() => {
+        showSequence(game.currentGame);
+      }, 1000);
+    }
+    return;
+  }
 
-					$("#message").text(pickAWord() + " Next Level!");
-					$("#message").addClass("animated swing");
+  // Correct so far
+  if (game.playerInput.length === game.currentGame.length) {
+    // Completed the full sequence
+    game.count++;
+    if (game.count > 20) {
+      // Player won!
+      gameWon();
+    } else {
+      showMessage(pickAWord() + " Next Level!", "success");
+      setTimeout(() => {
+        nextLevel();
+      }, 1000);
+    }
+  }
+}
 
-					nextLevel();
-					showMoves(game.currentGame);
-				} else {
-					$("#message").text("Congratulations! You Won!");
-					$("#message").addClass("animated swing");
-
-					if (playAgain()) {
-						$(".box").css({
-							"pointer-events": "none"
-						});
-						$("#yes").click(function() {
-							startGame();
-							$("#level").text(" LEVEL " + game.count);
-						});
-						$("#no").click(function() {
-							stopGame();
-						});
-					}
-				}
-			} else {
-				$("#level").text(" LEVEL " + game.count);
-
-				$("#message").text("Opps... that's not correct. Try Again!");
-				$("#message").addClass("animated swing");
-
-				clearPlayerInput();
-				showMoves(game.currentGame);
-			};
-		};
-	};
-};
-
-function initializeGame() {
-
-	$(".box").css({
-		"pointer-events": "none"
-	});
-};
-
-// New level sequence and setup;
 function nextLevel() {
-	generateMove();
+  generateMove();
+  game.playerInput = [];
+  showSequence(game.currentGame);
+}
 
-	clearPlayerInput();
-
-	if ($("#message").hasClass("animated swing")) {
-		window.setTimeout(function() {
-			$("#message").removeClass("animated swing");
-		}, 800);
-	};
-};
-
-// Generates a new color;
 function generateMove() {
-	game.currentGame.push(game.possibilities[(Math.floor(Math.random() * 4))]);
-};
+  game.currentGame.push(game.possibilities[Math.floor(Math.random() * 4)]);
+}
 
 function pickAWord() {
-	return game.winMessages[(Math.floor(Math.random() * 10))];
-};
+  return game.winMessages[Math.floor(Math.random() * game.winMessages.length)];
+}
 
-// Clears the player inputs array;
-function clearPlayerInput() {
-	game.playerInput = [];
-};
-
-// Resets the entire game;
 function startGame() {
-	game.count = 1;
-	game.currentGame = [];
-	game.playerInput = [];
-	generateMove();
-	showMoves(game.currentGame);
-	$(".box").css({
-		"pointer-events": "auto"
-	});
-};
+  // Clear any pending sequence timer
+  if (game.sequenceTimer) {
+    clearTimeout(game.sequenceTimer);
+    game.sequenceTimer = null;
+  }
+
+  game.count = 1;
+  game.currentGame = [];
+  game.playerInput = [];
+  game.isGameActive = true;
+
+  startBtn.classList.add("started");
+  startBtn.textContent = "Restart";
+  pads.forEach((pad) => pad.classList.remove("disabled"));
+
+  generateMove();
+  showSequence(game.currentGame);
+}
 
 function stopGame() {
-	game.count = 1;
-	game.currentGame = [];
-	game.playerInput = [];
-	$("#btn1").removeClass("started");
-	$("#btn1").addClass("stopped");
-	$("#btn1").text("Start");
-	$(".box").attr('disabled', 'disabled');
-	$("#level").text("");
-	$("#message").text("");
-	$(".box").css({
-		"pointer-events": "none"
-	});
-	//Refresh browser for codepen!
-	location.reload(true);
-};
+  if (game.sequenceTimer) {
+    clearTimeout(game.sequenceTimer);
+    game.sequenceTimer = null;
+  }
 
-function showMoves(moves) {
-	$("#level").text(" Level " + game.count);
-	var i = 0;
-	var $interval = setInterval(function() {
-		lightUp(moves[i]);
-		i++;
-		if (i >= moves.length) {
-			clearInterval($interval);
-		}
-	}, 1000);
-};
+  game.count = 1;
+  game.currentGame = [];
+  game.playerInput = [];
+  game.isGameActive = false;
+  game.isPlaying = false;
+
+  startBtn.classList.remove("started");
+  startBtn.textContent = "Start";
+  pads.forEach((pad) => pad.classList.add("disabled"));
+
+  levelDisplay.textContent = "Level 1";
+  showMessage("Press Start to play");
+}
+
+function gameWon() {
+  game.isGameActive = false;
+  pads.forEach((pad) => pad.classList.add("disabled"));
+  showMessage("Congratulations! You Won!", "success");
+
+  // Auto-restart after a delay
+  setTimeout(() => {
+    startGame();
+  }, 3000);
+}
+
+function showSequence(moves) {
+  game.isPlaying = true;
+  pads.forEach((pad) => pad.classList.add("disabled"));
+
+  levelDisplay.textContent = "Level " + game.count;
+
+  let i = 0;
+  const playNext = () => {
+    if (i >= moves.length) {
+      // Sequence finished, allow player input
+      game.isPlaying = false;
+      pads.forEach((pad) => pad.classList.remove("disabled"));
+      return;
+    }
+    lightUp(moves[i]);
+    i++;
+    game.sequenceTimer = setTimeout(playNext, 800);
+  };
+
+  // Small delay before starting the sequence
+  game.sequenceTimer = setTimeout(playNext, 500);
+}
 
 function lightUp(color) {
-	var $color = $("#" + color).addClass("animated pulse");
+  const pad = document.getElementById(color);
+  pad.classList.add("active");
 
-	if (game.sound) {
-		playSound(color);
-	};
+  if (game.sound) {
+    playSound(color);
+  }
 
-	window.setTimeout(function() {
-		$color.removeClass("animated pulse");
-	}, 800);
-};
+  setTimeout(() => {
+    pad.classList.remove("active");
+  }, 400);
+}
 
 function playSound(color) {
-	game.sounds[color].play();
-};
+  // Reset audio to allow rapid replay
+  const audio = game.sounds[color];
+  audio.currentTime = 0;
+  audio.play().catch(() => {
+    // Ignore autoplay errors
+  });
+}
 
-function playAgain() {
-	$("#message").html('<div><h1>Congratulations! You Won!</h1><h2>Play Again?</h2><button class="btn btn-default btn-sm" id="yes">Yes</button><button class="btn btn-default btn-sm" id="no">No</button></div>');
-	return true;
-};
+function showMessage(text, type) {
+  messageDisplay.textContent = text;
+  messageDisplay.classList.remove("error", "success");
+  if (type) {
+    messageDisplay.classList.add(type);
+  }
+}

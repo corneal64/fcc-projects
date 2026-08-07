@@ -1,154 +1,283 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="description"
+      content="The Guitar Shop - Premium guitars, expert advice, and complete packages for every musician."
+    />
+    <title>The Guitar Shop | Premium Guitars</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>The Guitar Shop</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-
-<body>
-  <header id="header">
-    <img id="header-img" src="https://i.ibb.co/x3rsPCL/logo.jpg" alt="company logo" />
-    <nav id="nav-bar">
-      <li><a class="nav-link" href="#about">About</a></li>
-      <li><a class="nav-link" href="#product-title">Products</a></li>
-      <li><a class="nav-link" href="#package-title">Packages</a></li>
-    </nav>
-  </header>
-  <br />
-  <div class="container">
-    <div class="subscribe-form">
-      <form action="https://www.freecodecamp.com/email-submit" method="POST" id="form">
-        <h1 id="emailText">Request A Guitar!</h1>
-        <input type="email" name="email" id="email" placeholder="Enter Your E-mail Address" />
-        <input id="submit" type="submit" value="Request Now" />
-      </form>
-    </div>
-    <br />
-    <section id="section1">
-      <iframe id="video" width="560" height="315" src="https://www.youtube.com/embed/13RW9vBTiNQ" frameborder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </section>
-
-    <div class="row">
-      <div id="about">
-        <h2 class="about">Who We Are</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt eos
-          dolor minima fugit, tempora explicabo? Ducimus recusandae nihil
-          veniam doloremque repudiandae alias ea, facilis, quod fugit tenetur
-          impedit sequi quae. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Fugiat recusandae ratione perspiciatis! Aspernatur
-          rerum soluta praesentium non dolor, ut a laboriosam nihil?
-          Reiciendis itaque eos tenetur quo illo velit quis.
-        </p>
-        <h2>What We Do</h2>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum, quas
-          eos voluptate inventore minus totam ullam culpa! Quidem, ipsum
-          tenetur iure, sed nulla, voluptate commodi at expedita quam beatae
-          quas. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut
-          cumque ea, recusandae soluta, at a rerum corrupti, quaerat delectus
-          qui odit maxime doloremque. Molestiae et blanditiis, praesentium
-          nostrum dicta minus.
-        </p>
-      </div>
-    </div>
-
-    <h2 id="product-title">Our Products</h2>
-    <br />
-
-    <div id="products">
-      <div class="guitar bass-guitar">
+  <body>
+    <header id="header">
+      <div class="logo">
         <img
-          src="https://images.reverb.com/image/upload/s--jvkgTGy3--/t_card-square/v1529423035/cy76blbp3i6ojoqryzlz.png"
-          alt="guitar picture" />
-        <p>Bass guitar</p>
-        <ul class="guitar-info">
-          <li>dolor sit amet</li>
-          <li>Molestiae blanditiis</li>
-          <li>dolor sit amet</li>
-        </ul>
+          id="header-img"
+          src="https://i.ibb.co/x3rsPCL/logo.jpg"
+          alt="The Guitar Shop logo"
+        />
+        <span class="logo-text">The Guitar Shop</span>
       </div>
-      <div class="guitar electric-guitar">
-        <img src="https://i1.wp.com/guitarshopbd.com/wp-content/uploads/2019/05/mnhgjn.png" alt="guitar picture" />
-        <p>Electric guitar</p>
-        <ul class="guitar-info">
-          <li>dolor sit amet</li>
-          <li>Molestiae blanditiis</li>
-          <li>dolor sit amet</li>
+      <nav id="nav-bar">
+        <ul>
+          <li><a class="nav-link" href="#about">About</a></li>
+          <li><a class="nav-link" href="#products">Products</a></li>
+          <li><a class="nav-link" href="#packages">Packages</a></li>
+          <li><a class="nav-link" href="#contact">Contact</a></li>
         </ul>
-      </div>
-      <div class="guitar acoustic-guitar">
-        <img src="https://cdn.shopify.com/s/files/1/2501/6068/products/C18-L450C-NS_1517478417_498x498.jpg?v=1517549631"
-          alt="guitar picture" />
-        <p>Acoustic guitar</p>
-        <ul class="guitar-info">
-          <li>dolor sit amet</li>
-          <li>Molestiae blanditiis</li>
-          <li>dolor sit amet</li>
-        </ul>
-      </div>
-    </div>
-    <br />
+      </nav>
+    </header>
 
-    <h2 id="package-title">Our Packages</h2>
-    <br />
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Find Your Perfect Sound</h1>
+          <p>
+            Premium guitars hand-selected by musicians, for musicians. From your
+            first chord to your hundredth encore.
+          </p>
+          <a href="#products" class="btn btn-primary">Explore Guitars</a>
+        </div>
+      </section>
 
-    <div id="packages">
-      <div class="package">
-        <img src="https://cdn.pixabay.com/photo/2016/03/31/18/35/icons-1294492_960_720.png" alt="guitar picture" />
-        <p>Package 1</p>
-        <ul class="package-info">
-          <li>dolor sit amet</li>
-          <li>Molestiae blanditiis</li>
-          <li>dolor sit amet</li>
-          <li class="price">$120</li>
-          <button>Order Now</button>
-        </ul>
-      </div>
-      <div class="package">
-        <img src="https://cdn.pixabay.com/photo/2016/03/31/18/35/icons-1294492_960_720.png" alt="guitar picture" />
-        <p>Package 2</p>
-        <ul class="package-info">
-          <li>dolor sit amet</li>
-          <li>Molestiae blanditiis</li>
-          <li>dolor sit amet</li>
-          <li class="price">$250</li>
-          <button>Order Now</button>
-        </ul>
-      </div>
-      <div class="package">
-        <img src="https://cdn.pixabay.com/photo/2016/03/31/18/35/icons-1294492_960_720.png" alt="guitar picture" />
-        <p>Package 3</p>
-        <ul class="package-info">
-          <li>dolor sit amet</li>
-          <li>Molestiae blanditiis</li>
-          <li>dolor sit amet</li>
-          <li class="price">$400</li>
-          <button>Order Now</button>
-        </ul>
-      </div>
-    </div>
-    <br />
+      <!-- Subscribe Section -->
+      <section class="subscribe-section" id="contact">
+        <div class="container">
+          <div class="subscribe-form">
+            <form
+              action="https://www.freecodecamp.com/email-submit"
+              method="POST"
+              id="form"
+            >
+              <h2 id="emailText">Request A Guitar</h2>
+              <p class="form-subtitle">
+                Tell us what you're looking for and we'll help you find it.
+              </p>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter Your E-mail Address"
+                required
+              />
+              <input id="submit" type="submit" value="Request Now" />
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- Video Section -->
+      <section class="video-section">
+        <div class="container">
+          <h2 class="section-title">The Guitar Shop Experience</h2>
+          <div class="video-wrapper">
+            <video
+              id="video"
+              controls
+              preload="metadata"
+              poster="https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=800&q=80"
+            >
+              <source
+                src="https://upload.wikimedia.org/wikipedia/commons/5/58/FAST_GUITAR_SOLO.webm"
+                type="video/webm"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="about-section">
+        <div class="container">
+          <h2 class="section-title">Who We Are</h2>
+          <div class="about-content">
+            <div class="about-text">
+              <h3>Our Story</h3>
+              <p>
+                Founded in 2015, The Guitar Shop began as a small family-run
+                store with a simple mission: to make quality instruments
+                accessible to everyone. Today, we're proud to serve thousands of
+                musicians across the country, from beginners picking up their
+                first guitar to professionals touring the world.
+              </p>
+              <h3>What We Do</h3>
+              <p>
+                We curate a hand-picked selection of guitars from the world's
+                finest manufacturers. Every instrument in our store is
+                personally tested and set up by our team of experienced
+                luthiers, ensuring it arrives in your hands ready to play. We
+                also offer custom setups, repairs, and expert advice to help you
+                get the most from your instrument.
+              </p>
+            </div>
+            <div class="about-stats">
+              <div class="stat">
+                <span class="stat-number">10+</span>
+                <span class="stat-label">Years of Experience</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">5,000+</span>
+                <span class="stat-label">Happy Customers</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Guitar Brands</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Products Section -->
+      <section id="products" class="products-section">
+        <div class="container">
+          <h2 class="section-title">Our Products</h2>
+          <p class="section-subtitle">
+            Explore our curated collection of premium guitars
+          </p>
+          <div class="products-grid">
+            <div class="product-card">
+              <div class="product-image">
+                <img
+                  src="https://images.unsplash.com/photo-1525201548942-d8732f6617a0?w=600&q=80"
+                  alt="Bass guitar"
+                />
+              </div>
+              <div class="product-info">
+                <h3>Bass Guitar</h3>
+                <p>Deep, resonant tones for the rhythm section</p>
+                <ul class="product-features">
+                  <li>4-string precision bass</li>
+                  <li>Rosewood fingerboard</li>
+                  <li>Active electronics</li>
+                </ul>
+                <a href="#contact" class="btn btn-outline">Learn More</a>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image">
+                <img
+                  src="https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=600&q=80"
+                  alt="Electric guitar"
+                />
+              </div>
+              <div class="product-info">
+                <h3>Electric Guitar</h3>
+                <p>Versatile tones for rock, blues, and beyond</p>
+                <ul class="product-features">
+                  <li>Solid alder body</li>
+                  <li>Dual humbucker pickups</li>
+                  <li>Floyd Rose tremolo</li>
+                </ul>
+                <a href="#contact" class="btn btn-outline">Learn More</a>
+              </div>
+            </div>
+            <div class="product-card">
+              <div class="product-image">
+                <img
+                  src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600&q=80"
+                  alt="Acoustic guitar"
+                />
+              </div>
+              <div class="product-info">
+                <h3>Acoustic Guitar</h3>
+                <p>Warm, natural sound for any setting</p>
+                <ul class="product-features">
+                  <li>Solid spruce top</li>
+                  <li>Mahogany back & sides</li>
+                  <li>Built-in tuner</li>
+                </ul>
+                <a href="#contact" class="btn btn-outline">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Packages Section -->
+      <section id="packages" class="packages-section">
+        <div class="container">
+          <h2 class="section-title">Our Packages</h2>
+          <p class="section-subtitle">
+            Complete bundles with everything you need to start playing
+          </p>
+          <div class="packages-grid">
+            <div class="package-card">
+              <div class="package-header">
+                <h3>Starter</h3>
+                <p class="package-price">$120</p>
+              </div>
+              <ul class="package-features">
+                <li>Beginner acoustic guitar</li>
+                <li>Gig bag & strap</li>
+                <li>Digital tuner</li>
+                <li>3 picks & spare strings</li>
+              </ul>
+              <button class="btn btn-primary">Order Now</button>
+            </div>
+            <div class="package-card featured">
+              <div class="package-header">
+                <h3>Pro</h3>
+                <p class="package-price">$250</p>
+                <span class="badge">Most Popular</span>
+              </div>
+              <ul class="package-features">
+                <li>Intermediate electric guitar</li>
+                <li>Amplifier & cable</li>
+                <li>Hard case</li>
+                <li>Online lesson access</li>
+                <li>Free setup & tuning</li>
+              </ul>
+              <button class="btn btn-primary">Order Now</button>
+            </div>
+            <div class="package-card">
+              <div class="package-header">
+                <h3>Master</h3>
+                <p class="package-price">$400</p>
+              </div>
+              <ul class="package-features">
+                <li>Professional acoustic-electric</li>
+                <li>Premium hard case</li>
+                <li>Studio-quality accessories</li>
+                <li>1-on-1 lesson package</li>
+                <li>Lifetime maintenance</li>
+              </ul>
+              <button class="btn btn-primary">Order Now</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
     <footer>
-      <ul>
-        <a href="#">
-          <li class="item">Privacy</li>
-        </a>
-        <a href="#">
-          <li class="item">TOS</li>
-        </a>
-        <a href="#">
-          <li class="item">FAQ</li>
-        </a>
-      </ul>
-      <span>&copy; 2019</span>
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">FAQ</a>
+        </div>
+        <p class="footer-copy">
+          &copy; 2024 The Guitar Shop | Created by
+          <a
+            target="_blank"
+            href="https://www.github.com/corneal64"
+            class="inline-link"
+            >Cornelius</a
+          >
+        </p>
+      </div>
     </footer>
-  </div>
-</body>
-
+  </body>
 </html>
